@@ -1,12 +1,13 @@
 fn main() {
-    let player_name = String::from("Aragorn");
-    let player_level = 15;
-    generate_report(&player_name, &player_level);
-
-    println!("Welcome to the main hall {}!", player_name);
-    println!("This is a new line!"); // <-- НАША НОВАЯ СТРОКА
+    let hero_level = 5; 
+    let is_strong_enough = can_lift_hammer(hero_level);
+    if is_strong_enough {
+        println!("The Weapon Master says: 'You are strong enough! Take the hammer.'");
+    } else {
+        println!("The Weapon Master says: 'You are not yet worthy. Come back when you are stronger.'");
+    }
 }
 
-fn generate_report(name: &String, level: &u32) {
-    println!("Report: Player {} is level {}.", name, level);
+fn can_lift_hammer(level: u32) -> bool {
+    level > 10
 }
