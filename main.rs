@@ -1,13 +1,11 @@
-fn main() {
-    let hero_level = 5; 
-    let is_strong_enough = can_lift_hammer(hero_level);
-    if is_strong_enough {
-        println!("The Weapon Master says: 'You are strong enough! Take the hammer.'");
-    } else {
-        println!("The Weapon Master says: 'You are not yet worthy. Come back when you are stronger.'");
-    }
-}
+fn format_log_entry(event: &String) -> String {
+        let new_log_entry = format!("[LOG: 28.08.2025] {}", event);
+return new_log_entry;
+} 
 
-fn can_lift_hammer(level: u32) -> bool {
-    level > 10
+fn main(){
+    let latest_event = String::from("The Dragon was defeated");
+let journal_entry = format_log_entry(&latest_event);
+println!("Original evenet: {}", latest_event);
+println!("New journal entry: {}", journal_entry);
 }
