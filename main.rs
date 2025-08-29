@@ -1,11 +1,13 @@
-fn format_log_entry(event: &String) -> String {
-        let new_log_entry = format!("[LOG: 28.08.2025] {}", event);
-return new_log_entry;
-} 
+fn format_character_sheet(name: &String, level: &u32, class: &String) -> String {
+let character_sheet = format!("--- Character Sheet --- \n Name: {} \n Level: {} \n Class {}", name, level, class);
+return character_sheet;
 
+}
 fn main(){
-    let latest_event = String::from("The Dragon was defeated");
-let journal_entry = format_log_entry(&latest_event);
-println!("Original evenet: {}", latest_event);
-println!("New journal entry: {}", journal_entry);
+    let name = String::from("Legolas");
+    let level = 18;
+    let class = String::from("Archer");
+    let character_sheet = format_character_sheet(&name, &level, &class);
+    println!("{}",character_sheet);
+    println!("The character {} is ready for adventure!", name);
 }
