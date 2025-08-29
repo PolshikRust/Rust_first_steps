@@ -1,13 +1,17 @@
-fn format_character_sheet(name: &String, level: &u32, class: &String) -> String {
-let character_sheet = format!("--- Character Sheet --- \n Name: {} \n Level: {} \n Class {}", name, level, class);
-return character_sheet;
-
+struct InventoryItem {
+    name: String,
+    quantity: u32,
+    description: String,
 }
 fn main(){
-    let name = String::from("Legolas");
-    let level = 18;
-    let class = String::from("Archer");
-    let character_sheet = format_character_sheet(&name, &level, &class);
-    println!("{}",character_sheet);
-    println!("The character {} is ready for adventure!", name);
+    let item = InventoryItem {
+        name: String::from("Health Potion"),
+        quantity: 5,
+        description: String::from("A simple potion that restores 50 HP")};
+        let item_details = format_item_details(&item);
+        println!("{}", item_details);
+    }
+fn format_item_details(inventoryitem: &InventoryItem) -> String {
+    let details = format!("--- Item Details ---\nName: {}\nQuantity: {}\nDescription: {}", inventoryitem.name, inventoryitem.quantity, inventoryitem.description);
+    return details;
 }
