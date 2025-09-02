@@ -1,50 +1,17 @@
-// enum и struct у тебя были идеальны
-enum ItemKind {
-    Weapon,
-    Potion,
+fn calculate_area(width: u32, height: u32) -> u32 {
+    width * height
+
 }
 
-struct Item {
-    name: String,
-    kind: ItemKind,
+fn calculate_perimeter(width: u32, height: u32) -> u32 {
+     2 * (height + width)
 }
 
-// Функция-анализатор. Обрати внимание, где теперь `println!`
-fn analyze_inventory(inventory: &Vec<Item>) {
-    let mut weapon_count = 0;
-    let mut potion_count = 0;
 
-    // Цикл for ТОЛЬКО считает предметы. Он ничего не печатает.
-    for item in inventory {
-        match &item.kind {
-            ItemKind::Weapon => {
-                weapon_count += 1;
-            }
-            ItemKind::Potion => {
-                potion_count += 1;
-            }
-        }
-    } // Цикл for заканчивается здесь
-
-    // КЛЮЧЕВОЙ МОМЕНТ №1:
-    // Блок `println!` с результатами находится ПОСЛЕ цикла `for`, а не внутри него.
-    // Он выполняется один раз, когда все уже посчитано.
-    println!("--- Inventory Analysis ---\nWeapons: {}\nPotions: {}\n--------------", weapon_count, potion_count);
-}
-
-// Главная функция
 fn main() {
-    let mut inventory = Vec::new();
-
-    // КЛЮЧЕВОЙ МОМЕНТ №2:
-    // Я убрал ненужные переменные `sword` и `buff`, чтобы не было предупреждений.
-    // Мы создаем предметы прямо при добавлении в вектор. Это чище.
-    inventory.push(Item { name: String::from("Silver Sword"), kind: ItemKind::Weapon });
-    inventory.push(Item { name: String::from("Iron Sword"), kind: ItemKind::Weapon });
-    inventory.push(Item { name: String::from("Buff Potion"), kind: ItemKind::Potion });
-    inventory.push(Item { name: String::from("Health Potion"), kind: ItemKind::Potion });
-    inventory.push(Item { name: String::from("Mana Potion"), kind: ItemKind::Potion });
-
-    // Вызываем нашу функцию-анализатор
-    analyze_inventory(&inventory);
+let rect_width = 10;
+let rect_height = 5;
+let area = calculate_area(rect_width, rect_height);
+let perimeter = calculate_perimeter(rect_width, rect_height);
+println!("Rectangle dimensions: {}x{}\nArea: {}\nPerimeter: {}", rect_width, rect_height, area, perimeter);
 }
