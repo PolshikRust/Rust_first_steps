@@ -1,56 +1,50 @@
-struct InventoryItem {
+// enum и struct у тебя были идеальны
+enum ItemKind {
+    Weapon,
+    Potion,
+}
+
+struct Item {
     name: String,
-    quantity: u32,
-    description: String,
-    item_type: String,
+    kind: ItemKind,
 }
 
-impl InventoryItem {
-    fn format_item_details(&self) -> String {
-    format!("--- Item Details ---\nName: {}\nQuantity: {}\nDescription: {}\nType: {}", 
-    self.name, self.quantity, self.description, self.item_type)
-    }
-}
- 
+// Функция-анализатор. Обрати внимание, где теперь `println!`
+fn analyze_inventory(inventory: &Vec<Item>) {
+    let mut weapon_count = 0;
+    let mut potion_count = 0;
 
-fn main(){
-    let mut inventory = Vec::new();
-        let potion = InventoryItem { 
-        name: String::from("Heath Potion"), 
-        quantity: 5, 
-        description: String::from("Restore 50 HP"),
-        item_type: String::from("Potion"),
-    };
-
-        let sword = InventoryItem { 
-            name: String::from("Silver Sword"), 
-            quantity: 1, 
-            description: String::from("Basic Weapon"),
-            item_type: String::from("Weapon"),
-        };
-        let shield = InventoryItem { 
-            name: String::from("War Shield"), 
-            quantity: 1, 
-            description: String::from("Legendary Shield of Great War"),
-            item_type: String::from("Item"),
-        };
-
-        inventory.push(potion);
-        inventory.push(sword);
-        inventory.push(shield);
-
-         println!("--- Player Inventory ---");
-          for item in &inventory {
-            if item.item_type == "Potion" {
-            println!("- {:<15} (x{}) {}", item.name, item.quantity, item.item_type);
-            
-         } else if item.item_type == "Weapon" {
-            println!("- {:<15} (x{}) {}", item.name, item.quantity, item.item_type);
-
-         } else {
-            println!("- {:<15} (x{}) {}", item.name, item.quantity, item.item_type);
-         }
+    // Цикл for ТОЛЬКО считает предметы. Он ничего не печатает.
+    for item in inventory {
+        match &item.kind {
+            ItemKind::Weapon => {
+                weapon_count += 1;
+            }
+            ItemKind::Potion => {
+                potion_count += 1;
+            }
         }
-            println!("----------------------");
-    }
-    
+    } // Цикл for заканчивается здесь
+
+    // КЛЮЧЕВОЙ МОМЕНТ №1:
+    // Блок `println!` с результатами находится ПОСЛЕ цикла `for`, а не внутри него.
+    // Он выполняется один раз, когда все уже посчитано.
+    println!("--- Inventory Analysis ---\nWeapons: {}\nPotions: {}\n--------------", weapon_count, potion_count);
+}
+
+// Главная функция
+fn main() {
+    let mut inventory = Vec::new();
+
+    // КЛЮЧЕВОЙ МОМЕНТ №2:
+    // Я убрал ненужные переменные `sword` и `buff`, чтобы не было предупреждений.
+    // Мы создаем предметы прямо при добавлении в вектор. Это чище.
+    inventory.push(Item { name: String::from("Silver Sword"), kind: ItemKind::Weapon });
+    inventory.push(Item { name: String::from("Iron Sword"), kind: ItemKind::Weapon });
+    inventory.push(Item { name: String::from("Buff Potion"), kind: ItemKind::Potion });
+    inventory.push(Item { name: String::from("Health Potion"), kind: ItemKind::Potion });
+    inventory.push(Item { name: String::from("Mana Potion"), kind: ItemKind::Potion });
+
+    // Вызываем нашу функцию-анализатор
+    analyze_inventory(&inventory);
+}
